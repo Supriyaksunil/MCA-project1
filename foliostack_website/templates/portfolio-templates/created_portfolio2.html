@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ name }} - Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <style>
+    /* Base */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      background: #ffffff;
+      color: #222;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+    a { text-decoration: none; color: inherit; }
+
+    /* Navbar */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: #f6f7f8;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+    }
+    nav h1 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #2e4053;
+    }
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 1.5rem;
+    }
+    nav a {
+      color: #2e4053;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+    nav a:hover {
+      color: #4a90e2;
+    }
+
+    /* Hero */
+    header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      min-height: 100vh;
+      padding: 100px 2rem 2rem;
+      background: #f8fafc;
+    }
+    header img {
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 4px solid #4a90e2;
+      margin-bottom: 1rem;
+    }
+    header h1 {
+      font-size: 2.8rem;
+      color: #2e4053;
+    }
+    header p {
+      font-size: 1.2rem;
+      color: #555;
+      margin: 0.5rem 0 1.5rem;
+    }
+    .btn {
+      display: inline-block;
+      padding: 0.75rem 1.8rem;
+      background: #4a90e2;
+      color: #fff;
+      border-radius: 30px;
+      font-weight: 600;
+      transition: background 0.3s;
+    }
+    .btn:hover {
+      background: #2e76c5;
+    }
+
+    /* Section base */
+    section {
+      padding: 5rem 2rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    section h2 {
+      text-align: center;
+      color: #2e4053;
+      font-size: 2rem;
+      margin-bottom: 2.5rem;
+      position: relative;
+    }
+    section h2::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 3px;
+      background: #4a90e2;
+      margin: 10px auto 0;
+    }
+
+    /* About */
+    #about p {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto;
+      color: #444;
+    }
+
+    /* Skills */
+    .skills-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    .skill {
+      background: #e7eff6;
+      color: #2e4053;
+      padding: 0.75rem 1.5rem;
+      border-radius: 25px;
+      font-weight: 500;
+      transition: transform 0.3s ease;
+    }
+    .skill:hover {
+      transform: scale(1.05);
+      background: #4a90e2;
+      color: white;
+    }
+
+    /* Experience */
+    .experience {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    .exp-item {
+      background: #f8fafc;
+      border-left: 4px solid #4a90e2;
+      padding: 1.5rem 2rem;
+      border-radius: 6px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+      transition: transform 0.3s;
+    }
+    .exp-item:hover {
+      transform: translateY(-5px);
+    }
+    .exp-item h3 {
+      margin-bottom: 0.3rem;
+      color: #2e4053;
+    }
+    .exp-item p {
+      color: #555;
+    }
+
+    /* Gallery & Certifications */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+    .gallery img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 8px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+    }
+    .gallery img:hover {
+      transform: scale(1.05);
+    }
+
+    /* Footer */
+    footer {
+      background: #f6f7f8;
+      text-align: center;
+      padding: 2rem 1rem;
+      color: #555;
+    }
+    footer .social a {
+      color: #4a90e2;
+      margin: 0 10px;
+      font-size: 1.3rem;
+      transition: color 0.3s;
+    }
+    footer .social a:hover {
+      color: #2e76c5;
+    }
+
+    @media(max-width:768px){
+      nav { flex-direction: column; gap: 1rem; padding: 0.5rem 1rem; }
+      header h1 { font-size: 2rem; }
+      .btn { padding: 0.6rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav>
+    <h1>{{ name.split()[0] }}.</h1>
+    <ul>
+      {% if about %}<li><a href="#about">About</a></li>{% endif %}
+      {% if skills %}<li><a href="#skills">Skills</a></li>{% endif %}
+      {% if certifications %}<li><a href="#certifications">Certifications</a></li>{% endif %}
+      {% if experience_titles or qualification_titles %}<li><a href="#experience">Experience</a></li>{% endif %}
+      {% if gallery_images %}<li><a href="#gallery">Gallery</a></li>{% endif %}
+      {% if linkedin or github or email %}<li><a href="#contact">Contact</a></li>{% endif %}
+    </ul>
+  </nav>
+
+  <!-- Hero -->
+  <header>
+    {% if profile_image %}<img src="{{ url_for('static', filename='img/uploads/profile_images/' + profile_image) }}" alt="{{ name }}">{% endif %}
+    <h1>{{ name }}</h1>
+    <p>{{ position }}</p>
+    {% if gallery_images %}<a href="#gallery" class="btn">View My Work</a>{% endif %}
+  </header>
+
+  <!-- About -->
+  {% if about %}
+  <section id="about">
+    <h2>About Me</h2>
+    <p>{{ about }}</p>
+  </section>
+  {% endif %}
+
+  <!-- Skills -->
+  {% if skills %}
+  <section id="skills">
+    <h2>Skills</h2>
+    <div class="skills-container">
+      {% for skill in skills %}
+      <div class="skill">{{ skill }}</div>
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+
+  <!-- Certifications -->
+  {% if certifications %}
+  <section id="certifications">
+    <h2>Certifications</h2>
+    <div class="gallery">
+      {% for cert in certifications %}
+      <img src="{{ url_for('static', filename='img/uploads/certifications/' + cert) }}" alt="Certificate">
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+
+  <!-- Experience & Qualifications -->
+  {% if experience_titles or qualification_titles %}
+  <section id="experience">
+    <h2>Experience & Qualifications</h2>
+    <div class="experience">
+      {% for title, desc in zip(experience_titles, experience_desc) %}
+      <div class="exp-item">
+        <h3>{{ title }}</h3>
+        <p>{{ desc }}</p>
+      </div>
+      {% endfor %}
+      {% for title, desc in zip(qualification_titles, qualification_desc) %}
+      <div class="exp-item">
+        <h3>{{ title }}</h3>
+        <p>{{ desc }}</p>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+
+  <!-- Gallery -->
+  {% if gallery_images %}
+  <section id="gallery">
+    <h2>Gallery</h2>
+    <div class="gallery">
+      {% for img in gallery_images %}
+      <img src="{{ url_for('static', filename='img/uploads/gallery/' + img) }}" alt="Gallery Image">
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+
+  <!-- Footer -->
+  {% if linkedin or github or email %}
+  <footer id="contact">
+    <p>Let’s connect and create something amazing together.</p>
+    <div class="social">
+      {% if linkedin %}<a href="{{ linkedin }}" target="_blank"><i class="fab fa-linkedin"></i></a>{% endif %}
+      {% if github %}<a href="{{ github }}" target="_blank"><i class="fab fa-github"></i></a>{% endif %}
+      {% if email %}<a href="mailto:{{ email }}"><i class="fa fa-envelope"></i></a>{% endif %}
+    </div>
+  </footer>
+  {% endif %}
+
+</body>
+</html>

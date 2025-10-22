@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Emma Watson - Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <style>
+    /* Base */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+    body {
+      background: #ffffff;
+      color: #222;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+    a { text-decoration: none; color: inherit; }
+
+    /* Navbar */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: #f6f7f8;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+    }
+    nav h1 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #2e4053;
+    }
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 1.5rem;
+    }
+    nav a {
+      color: #2e4053;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+    nav a:hover {
+      color: #4a90e2;
+    }
+
+    /* Hero */
+    header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      height: 100vh;
+      padding: 0 2rem;
+      background: #f8fafc;
+    }
+    header img {
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 4px solid #4a90e2;
+      margin-bottom: 1rem;
+    }
+    header h1 {
+      font-size: 2.8rem;
+      color: #2e4053;
+    }
+    header p {
+      font-size: 1.2rem;
+      color: #555;
+      margin: 0.5rem 0 1.5rem;
+    }
+    .btn {
+      display: inline-block;
+      padding: 0.75rem 1.8rem;
+      background: #4a90e2;
+      color: #fff;
+      border-radius: 30px;
+      font-weight: 600;
+      transition: background 0.3s;
+    }
+    .btn:hover {
+      background: #2e76c5;
+    }
+
+    /* Section base */
+    section {
+      padding: 5rem 2rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    section h2 {
+      text-align: center;
+      color: #2e4053;
+      font-size: 2rem;
+      margin-bottom: 2.5rem;
+      position: relative;
+    }
+    section h2::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 3px;
+      background: #4a90e2;
+      margin: 10px auto 0;
+    }
+
+    /* About */
+    #about p {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto;
+      color: #444;
+    }
+
+    /* Skills */
+    .skills-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    .skill {
+      background: #e7eff6;
+      color: #2e4053;
+      padding: 0.75rem 1.5rem;
+      border-radius: 25px;
+      font-weight: 500;
+      transition: transform 0.3s ease;
+    }
+    .skill:hover {
+      transform: scale(1.05);
+      background: #4a90e2;
+      color: white;
+    }
+
+    /* Experience */
+    .experience {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    .exp-item {
+      background: #f8fafc;
+      border-left: 4px solid #4a90e2;
+      padding: 1.5rem 2rem;
+      border-radius: 6px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+      transition: transform 0.3s;
+    }
+    .exp-item:hover {
+      transform: translateY(-5px);
+    }
+    .exp-item h3 {
+      margin-bottom: 0.3rem;
+      color: #2e4053;
+    }
+    .exp-item p {
+      color: #555;
+    }
+
+    /* Gallery */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+    .gallery img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 8px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+    }
+    .gallery img:hover {
+      transform: scale(1.05);
+    }
+
+    /* Footer */
+    footer {
+      background: #f6f7f8;
+      text-align: center;
+      padding: 2rem 1rem;
+      color: #555;
+    }
+    footer a {
+      color: #4a90e2;
+      margin: 0 10px;
+      font-size: 1.3rem;
+      transition: color 0.3s;
+    }
+    footer a:hover {
+      color: #2e76c5;
+    }
+
+    @media(max-width:768px){
+      header h1 { font-size: 2rem; }
+      .btn { padding: 0.6rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav>
+    <h1>Emma.</h1>
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#certifications">Certifications</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero -->
+  <header>
+    <img src="{{ url_for('static', filename='img/templates/emma.jpg') }}" alt="Emma Watson">
+    <h1>Emma Watson</h1>
+    <p>UI/UX Designer | Visual Storyteller | Problem Solver</p>
+    <a href="#gallery" class="btn">View My Work</a>
+  </header>
+
+  <!-- About -->
+  <section id="about">
+    <h2>About Me</h2>
+    <p>Hello, I’m Emma — a passionate UI/UX designer focused on creating meaningful and intuitive digital experiences. 
+      I blend creativity and functionality to build user-centered designs that tell a story and engage audiences.</p>
+  </section>
+
+  <!-- Skills -->
+  <section id="skills">
+    <h2>Skills</h2>
+    <div class="skills-container">
+      <div class="skill">Figma</div>
+      <div class="skill">Adobe XD</div>
+      <div class="skill">Prototyping</div>
+      <div class="skill">Wireframing</div>
+      <div class="skill">HTML/CSS</div>
+      <div class="skill">UX Research</div>
+    </div>
+  </section>
+
+  <!-- Certifications -->
+  <section id="certifications">
+    <h2>Certifications</h2>
+    <div class="gallery">
+      <img src="{{ url_for('static', filename='img/templates/certificate1.jpg') }}" alt="Front-End Development Certificate">
+      <img src="{{ url_for('static', filename='img/templates/certificate2.jpg') }}" alt="JavaScript Advanced Course">
+      <img src="{{ url_for('static', filename='img/templates/certificate3.jpg') }}" alt="React Developer Bootcamp">
+      <img src="{{ url_for('static', filename='img/templates/certificate4.png') }}" alt="UI/UX Design Essentials">
+    </div>
+  </section>
+
+
+  <!-- Experience -->
+  <section id="experience">
+    <h2>Experience</h2>
+    <div class="experience">
+      <div class="exp-item">
+        <h3>Senior UI/UX Designer</h3>
+        <p><strong>PixelWave Studio</strong> — 2023 - Present</p>
+        <p>Lead a team of designers to deliver high-end web and mobile experiences for global clients.</p>
+      </div>
+      <div class="exp-item">
+        <h3>UX Designer</h3>
+        <p><strong>BrightDesign Agency</strong> — 2021 - 2023</p>
+        <p>Collaborated with developers and product owners to craft elegant and data-driven design solutions.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section id="gallery">
+    <h2>Gallery</h2>
+    <div class="gallery">
+      <img src="{{ url_for('static', filename='img/templates/gallery1.jpg') }}" alt="UI Design 1">
+      <img src="{{ url_for('static', filename='img/templates/gallery2.jpg') }}" alt="UI Design 2">
+      <img src="{{ url_for('static', filename='img/templates/gallery3.jpg') }}" alt="UI Design 3">
+      <img src="{{ url_for('static', filename='img/templates/gallery4.jpg') }}" alt="UI Design 4">
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer id="contact">
+    <p>Let’s connect and create something amazing together.</p>
+    <div class="social">
+      <a href="#"><i class="fab fa-linkedin"></i></a>
+      <a href="#"><i class="fab fa-behance"></i></a>
+      <a href="mailto:emma@example.com"><i class="fa fa-envelope"></i></a>
+    </div>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,109 @@
+/* Global Background */
+body {
+    background-color: #0f172a;
+    color: #f8fafc;
+    font-family: 'Source Sans Pro', sans-serif;
+    margin-right: 25%;
+}
+
+/* Navbar */
+.navbar-nav .nav-link {
+    color: #f8fafc !important;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+.navbar-nav .nav-link:hover {
+    color: #6c63ff !important;
+}
+
+/* Hero Logo */
+.logo-fa {
+    font-size: 2.8rem;
+    font-family: 'Michroma', sans-serif;
+    color: #6c63ff;
+}
+
+/* Hero Buttons */
+.btn-light {
+    background-color: #6c63ff;
+    border: none;
+    color: #fff;
+}
+.btn-light:hover {
+    background-color: #5146d8;
+}
+.btn-outline-light {
+    border-color: #4faeee;
+    color: #858d8c;
+}
+.btn-outline-light:hover {
+    background-color: #ffffff;
+    color: #9e9c9c;
+}
+
+/* Section Titles */
+.title h2, .title h3 {
+    color: #6c63ff;
+    font-weight: 700;
+}
+
+/* Features Icons */
+.icn i {
+    color: #ffffff;
+}
+
+/* Contact Section */
+.contact-section {
+    background: #1e293b;
+    padding: 60px 0;
+    border-radius: 12px;
+}
+.contact-details i {
+    color: #6c63ff;
+}
+
+/* Footer */
+.footer {
+    background: #0f172a;
+    color: #94a3b8;
+    padding: 20px 0;
+    margin: 0;
+}
+.footer p {
+    margin: 0;
+}
+form{
+    color:gray;
+   
+}
+#sidebar {
+  position: fixed;
+  height: 100vh;
+  left: 0;
+  top: 0;
+}
+
+.nav-link.active {
+  background-color: #495057;
+  border-radius: 6px;
+}
+
+.card {
+  border-radius: 12px;
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.table {
+  background-color: #fff;
+  border-radius: 10px;
+}
+
+body {
+  background-color: #f8f9fa;
+}
+
+

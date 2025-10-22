@@ -1,0 +1,222 @@
+{% extends 'index.html' %}
+
+{% block title %}Home - FolioStack{% endblock %}
+{% block navbar %}
+            <!-- Default Navbar for homepage -->
+<header class="header order-last" id="tm-header">
+    <nav class="navbar">
+        <div class="collapse navbar-collapse single-page-nav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="#section-1"><span class="icn"><i class="fas fa-2x fa-home"></i></span> Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#section-2"><span class="icn"><i class="fas fa-2x fa-laptop-code"></i></span> Features</a>
+                </li>
+                <!-- <li class="nav-item">
+                    <a class="nav-link" href="#section-3"><span class="icn"><i class="far fa-2x fa-user"></i></span> Login</a>
+                </li> -->
+                <li class="nav-item">
+                    <a class="nav-link" href="#section-4"><span class="icn"><i class="far fa-2x fa-comments"></i></span> Contact</a>
+                </li>
+                <!-- <li class="nav-item">
+                    <a class="nav-link" href="#section-5"><span class="icn"><i class="fas fa-2x fa-user-plus"></i></span> Register</a>
+                </li> -->
+            </ul>
+        </div>
+    </nav>
+</header>
+{% endblock %}
+{% block content %}
+<!-- Hero Section -->
+<div class="banner-section section parallax-window" 
+     data-parallax="scroll" 
+     data-image-src="{{ url_for('static', filename='img/section-1-bg.jpg') }}" 
+     id="section-1">
+    <div class="container">
+        <div class="item">
+            <div class="logo-fa mb-3">
+                <i class="fas fa-folder-open"></i> FolioStack
+            </div>
+            <div class="simple">
+                <p>Create, customize, and share your professional portfolio in minutes.</p>
+            </div>
+            <div class="mt-4">
+                <a href="#section-5" id="show-register-btn" class="btn btn-light btn-lg me-2 external">Get Started</a>
+                <a href="#section-3" id="show-login-btn" class="btn btn-outline-light btn-lg external">Login</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Features Section -->
+<section class="work-section section" id="section-2">
+    <div class="title text-center mt-5 mb-3">
+        <h2>Why FolioStack?</h2>
+    </div>
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="tm-work-item-inner text-center">
+                    <div class="icn"><i class="fas fa-lightbulb fa-2x"></i></div>
+                    <h3>Easy Portfolio Creation</h3>
+                    <p>Quickly build online portfolios with beautiful, professional templates.</p>
+                </div>                        
+            </div>
+            <div class="col-md-4">
+                <div class="tm-work-item-inner text-center">
+                    <div class="icn"><i class="fas fa-paint-brush fa-2x"></i></div>
+                    <h3>Customizable Templates</h3>
+                    <p>Choose from responsive templates and personalize them with your details.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="tm-work-item-inner text-center">
+                    <div class="icn"><i class="fas fa-share-alt fa-2x"></i></div>
+                    <h3>Share with Recruiters</h3>
+                    <p>Publish your portfolio and share your unique link instantly.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="work-section section" id="section-3" style="display: none;">
+<div class="overlay px-4 px-md-5 py-5 w-100">
+  <div class="container mt-5 d-flex justify-content-center">
+    <div class="card shadow p-4 animate__animated animate__zoomIn" style="max-width: 500px; width: 100%;">
+      <h3 class="text-center mb-4" style="color: gray;">Login</h3>
+
+      {% if messages %}
+        {% for message in messages %}
+          <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+<form method="POST" action="{{ url_for('login') }}" id="loginForm">
+  <div class="mb-3">
+    <label for="login_username" class="form-label">Username</label>
+    <input type="text" name="username" style="color: black;" id="login_username" class="form-control" required>
+    <div class="invalid-feedback">Username is required.</div>
+  </div>
+
+  <div class="mb-3 input-group">
+    <label for="login_password" class="form-label w-100">Password</label>
+    <input type="password" name="password" style="color: black;" id="login_password" class="form-control" required>
+    <span class="input-group-text" style="cursor: pointer;">
+      <i class="fas fa-eye-slash" id="toggleLoginPassword"></i>
+    </span>
+    <div class="invalid-feedback">Password is required.</div>
+  </div>
+   
+
+  <button type="submit" class="btn btn-primary w-100">Login</button>
+</form>
+
+
+        <!-- Uncomment if you want role selection
+        <div class="mb-3">
+          <label for="role" class="form-label">Login as</label>
+          <select name="role" class="form-select" required>
+            <option value="">-- Select Role --</option>
+            <option value="recruiter">Recruiter</option>
+            <option value="builder">Portfolio Builder</option>
+          </select>
+        </div>
+        -->
+
+        
+      </form>
+    </div>
+  </div>
+</div>
+</section>
+<!--Register-->
+<section class="work-section section" id="section-5" style="display: none;">
+  <div class="container-fluid hero-section d-flex justify-content-center" style="margin-top: 10px; margin-bottom: 10px;">
+    <div class="card shadow p-4 animate__animated animate__zoomIn" style="max-width: 500px; width: 100%;">
+      <h3 class="text-center mb-4 animate__animated animate__bounceIn" style="color:gray;">Create an Account</h3>
+
+      <form method="POST" action="/register" id="registerForm">
+        <div class="form-group mb-3">
+          <label for="role" style="color: black;">Registering as:</label>
+          <select name="role" style="color: black;" id="role" class="form-control" required>
+            <option value="" style="color: black;">-- Select Role --</option>
+            <option value="builder" style="color: black;">Want to Build</option>
+            <option value="recruiter" style="color: black;">Recruiter</option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label for="id_username">Username</label>
+          <input type="text" name="username" id="id_username" class="form-control" style="color: black;" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="register_email">Email</label>
+          <input type="email" name="email" id="register_email" class="form-control" style="color: black;" required>
+        </div>
+
+        <div class="mb-3 input-group">
+          <label for="register_password" class="w-100">Password</label>
+          <input type="password" name="password" id="register_password" class="form-control" style="color: black;" required minlength="6">
+          <span class="input-group-text" style="cursor: pointer;">
+            <i class="fas fa-eye-slash" id="toggleRegisterPassword"></i>
+          </span>
+        </div>
+
+        <div class="mb-3 input-group">
+          <label for="register_confirm_password" class="w-100">Confirm Password</label>
+          <input type="password" name="confirm_password" id="register_confirm_password" class="form-control" style="color: black;" required>
+          <span class="input-group-text" style="cursor: pointer;">
+            <i class="fas fa-eye-slash" id="toggleRegisterConfirmPassword"></i>
+          </span>
+        </div>
+
+        <button type="submit" class="btn w-100" style="background-color: gray; color: white;">Register</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+
+<!-- Contact Section -->
+<section class="contact-section section" id="section-4">
+    <div class="container">
+        <div class="title text-center mb-4">
+            <h3>Get in Touch</h3>
+            <p class="text-light">We’d love to hear from you! Send us your queries or feedback.</p>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 mb-4 contact-form">
+                <form action="{{ url_for('contact') }}" method="POST">
+                    <div class="form-group mb-3">
+                        <input name="name" type="text" class="form-control" placeholder="Name">
+                            <div class="invalid-feedback">Name is required.</div>
+
+                    </div>
+                    <div class="form-group mb-3">
+                        <input name="email" style="color: black;" type="email" class="form-control" placeholder="Email">
+                            <div class="invalid-feedback">Enter a valid email address.</div>
+
+                    </div>
+                    <div class="form-group mb-3">
+                        <textarea name="message" style="color: black;" class="form-control" rows="5" placeholder="Message"></textarea>
+                            <div class="invalid-feedback">Message can't be empty.</div>
+
+                    </div>
+                    <div class="form-group text-right">
+                        <input type="submit" class="btn btn-light" value="Send Message">
+                    </div>
+                </form>
+            </div>
+            <div class="col-lg-6 contact-details">
+                <ul class="list-unstyled">
+                    <li><i class="fas fa-phone"></i> +91 9876543218</li>
+                    <li><i class="fas fa-envelope"></i> foliostacksupport@gmail.com</li>
+                    <li><i class="fab fa-instagram"></i> @foliostack</li>
+                </ul>
+            </div>
+        </div>                
+    </div>
+</section>
+
+{% endblock %}

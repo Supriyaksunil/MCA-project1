@@ -1,0 +1,151 @@
+{% extends "index.html" %}
+{% block navbar %}
+<header class="header order-last " id="tm-header">
+    <nav class="navbar ">
+        <div class="collapse navbar-collapse single-page-nav">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item"><a class="nav-link" href="#section-1"><i class="fas fa-home"></i> Portfolios</a></li>
+                <li class="nav-item"><a class="nav-link" href="#section-4"><i class="fas fa-sign-out-alt"></i> Contact FolioStack</a></li>
+
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('logout') }}"><i class="fas fa-sign-out-alt"></i> Log out</a></li>
+            </ul>
+        </div>
+    </nav>
+</header>
+{% endblock %}
+{% block content %}
+<div class="container mt-5" id="section-1">
+    <h2>Welcome, {{ username }} (Recruiter)</h2>
+    {% if is_verified %}
+        <p>Your account is verified. You can now view builder portfolios.</p>
+    {% else %}
+        <p class="alert alert-warning">Your account is pending verification. You will be able to view portfolios once an
+            admin approves your request.</p>
+    {% endif %}
+
+    {% if is_verified and portfolios %}
+    <h3 class="mt-5">Available Portfolios</h3>
+
+    <!-- Search Bar -->
+    <div class="mb-4">
+        <input type="text" style="background-color: gray; color: rgb(54, 54, 54);" id="portfolioSearch" onkeyup="searchPortfolios()" class="form-control" placeholder="Search by name or position...">
+    </div>
+
+    <table class="table table-striped" id="portfolioTable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Position</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="portfolioTableBody">
+            {% for portfolio in portfolios %}
+            <tr>
+                <td>{{ portfolio.name }}</td>
+                <td>{{ portfolio.position }}</td>
+                <td>
+                    <a href="{{ portfolio.portfolio_url }}" class="btn btn-sm btn-info" target="_blank">View</a>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-sm btn-secondary dropdown-toggle" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Share
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item"
+                                    href="mailto:?subject=Check out this portfolio&body=I found this great portfolio: {{ request.url_root[:-1] }}{{ portfolio.portfolio_url }}">Email</a>
+                            </li>
+                            <li><a class="dropdown-item"
+                                    href="https://api.whatsapp.com/send?text=Check out this portfolio: {{ request.url_root[:-1] }}{{ portfolio.portfolio_url }}"
+                                    target="_blank">WhatsApp</a></li>
+                            <li><button class="dropdown-item"
+                                    onclick="copyToClipboard('{{ request.url_root[:-1] }}{{ portfolio.portfolio_url }}')">Copy
+                                    Link</button></li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% elif is_verified %}
+    <p class="mt-4">No portfolios have been created yet.</p>
+    {% endif %}
+</div>
+
+<script>
+    function searchPortfolios() {
+        // Declare variables
+        var input, filter, table, tr, tdName, tdPosition, i, txtValueName, txtValuePosition;
+        input = document.getElementById("portfolioSearch");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("portfolioTable");
+        tr = table.getElementsByTagName("tr");
+
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 1; i < tr.length; i++) { // Start from 1 to skip the header row
+            tdName = tr[i].getElementsByTagName("td")[0];
+            tdPosition = tr[i].getElementsByTagName("td")[1];
+            if (tdName && tdPosition) {
+                txtValueName = tdName.textContent || tdName.innerText;
+                txtValuePosition = tdPosition.textContent || tdPosition.innerText;
+                if (txtValueName.toUpperCase().indexOf(filter) > -1 || txtValuePosition.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>
+<script>
+    function copyToClipboard(text) {
+        navigator.clipboard.writeText(text).then(function () {
+            alert('Portfolio link copied to clipboard!');
+        }, function (err) {
+            alert('Could not copy text: ', err);
+        });
+    }
+</script>
+<!-- Contact Section -->
+<section class="contact-section section" id="section-4">
+    <div class="container">
+        <div class="title text-center mb-4">
+            <h3>Get in Touch</h3>
+            <p class="text-light">We’d love to hear from you! Send us your queries or feedback.</p>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 mb-4 contact-form">
+                <form action="{{ url_for('contact') }}" method="POST">
+                    <div class="form-group mb-3">
+                        <input name="name" type="text" class="form-control" placeholder="Name">
+                            <div class="invalid-feedback">Name is required.</div>
+
+                    </div>
+                    <div class="form-group mb-3">
+                        <input name="email" style="color: black;" type="email" class="form-control" placeholder="Email">
+                            <div class="invalid-feedback">Enter a valid email address.</div>
+
+                    </div>
+                    <div class="form-group mb-3">
+                        <textarea name="message" style="color: black;" class="form-control" rows="5" placeholder="Message"></textarea>
+                            <div class="invalid-feedback">Message can't be empty.</div>
+
+                    </div>
+                    <div class="form-group text-right">
+                        <input type="submit" class="btn btn-light" value="Send Message">
+                    </div>
+                </form>
+            </div>
+            <div class="col-lg-6 contact-details">
+                <ul class="list-unstyled">
+                    <li><i class="fas fa-phone"></i> +91 9876543218</li>
+                    <li><i class="fas fa-envelope"></i> foliostacksupport@gmail.com</li>
+                    <li><i class="fab fa-instagram"></i> @foliostack</li>
+                </ul>
+            </div>
+        </div>                
+    </div>
+</section>
+
+{% endblock %}

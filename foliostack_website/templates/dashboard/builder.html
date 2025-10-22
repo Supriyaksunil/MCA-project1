@@ -1,0 +1,288 @@
+{% extends "index.html" %}
+{% block navbar %}
+<header class="header order-last " id="tm-header">
+    <nav class="navbar ">
+        <div class="collapse navbar-collapse single-page-nav">
+            <ul class="navbar-nav mx-auto">
+                <!-- <li class="nav-item"><a class="nav-link" href="{{ url_for('index') }}"><i class="fas fa-home"></i> Home</a></li> -->
+                <li class="nav-item"><a class="nav-link" href="#section-1"><i class="fas fa-layer-group"></i> How to Begin</a></li>
+                <li class="nav-item"><a class="nav-link" href="#section-2"><i class="fas fa-laptop-code"></i> Templates</a></li>
+                <li class="nav-item"><a class="nav-link" href="#section-3"><i class="far fa-comments"></i> Your Template</a></li>
+                <li class="nav-item"><a class="nav-link" href="#section-4"><i class="fas fa-layer-group"></i> Contact FolioStack</a></li>
+
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('logout') }}"><i class="fas fa-sign-out-alt"></i> Log out</a></li>
+
+            </ul>
+        </div>
+    </nav>
+</header>
+{% endblock %}
+{% block content %}
+<div class="container mt-5 text-center">
+    <h2>Welcome, {{ username }}</h2>
+    <p>Here you can create, edit, and manage your own portfolio website with ease.</p>
+</div>
+
+<!-- HOW TO BEGIN SECTION -->
+<section id="section-1" class="py-5 bg-light "  >
+    <div class="container">
+        <h2 class="text-center mb-4" style="color: gray;">How to Begin</h2>
+        <p class="text-center mb-5" style="color: gray;">
+            Creating your professional portfolio on <strong>FolioStack</strong> is simple and fun!  
+            Follow these easy steps to design your personalized portfolio website.
+        </p>
+
+<div class="row text-center" style="margin-bottom: 15px;">
+    <!-- Step 1 -->
+    <div class="col-md-4 mb-4">
+        <div class="card shadow-sm h-100 text-white border-0 position-relative"
+             style='background-image: url("{{ url_for("static", filename="img/choose-template.jpg") }}");
+                    background-size: cover;
+                    background-position: center;
+                    height: 350px;
+                    border-radius: 15px;'>
+            <div class="overlay position-absolute top-0 start-0 w-100 h-100"
+                 style="background-color: rgba(0, 0, 0, 0.5); border-radius: 15px;"></div>
+            <div class="card-body position-relative d-flex flex-column justify-content-center align-items-center p-4">
+                <h4 class="fw-bold mb-3">Step 1: Choose a Template</h4>
+                
+            </div>
+
+        </div>
+        <p class="mb-0" style="color: gray;">
+                    Browse our collection of modern, responsive templates and select one 
+                    that best represents your personality and profession.
+                </p>
+    </div>
+
+    <!-- Step 2 -->
+    <div class="col-md-4 mb-4">
+        <div class="card shadow-sm h-100 text-white border-0 position-relative"
+             style='background-image: url("{{ url_for("static", filename="img/fill-form.jpg") }}");
+                    background-size: cover;
+                    background-position: center;
+                    height: 350px;
+                    border-radius: 15px;'>
+            <div class="overlay position-absolute top-0 start-0 w-100 h-100"
+                 style="background-color: rgba(0, 0, 0, 0.5); border-radius: 15px;"></div>
+            <div class="card-body position-relative d-flex flex-column justify-content-center align-items-center p-4">
+                <h4 class="fw-bold mb-3">Step 2: Fill Out the Form</h4>
+                
+            </div>
+        </div>
+        <p class="mb-0" style="color: gray;">
+                    After choosing a template, fill out the portfolio form.  
+                    It will ask for your <strong>name, skills, qualifications, certifications, work experience</strong>, 
+                    and more details to showcase your profile.
+                </p>
+    </div>
+
+    <!-- Step 3 -->
+    <div class="col-md-4 mb-4">
+        <div class="card shadow-sm h-100 text-white border-0 position-relative"
+             style='background-image: url("{{ url_for("static", filename="img/share-portfolio.jpg") }}");
+                    background-size: cover;
+                    background-position: center;
+                    height: 350px;
+                    border-radius: 15px;'>
+            <div class="overlay position-absolute top-0 start-0 w-100 h-100"
+                 style="background-color: rgba(0, 0, 0, 0.5); border-radius: 15px;"></div>
+            <div class="card-body position-relative d-flex flex-column justify-content-center align-items-center p-4">
+                <h4 class="fw-bold mb-3">Step 3: Preview & Share</h4>
+               
+            </div>
+            
+        </div>
+         <p class="mb-0" style="color: gray;">
+                    Once submitted, your personalized portfolio will be generated automatically.  
+                    You can <strong>preview</strong> it, make changes if needed, 
+                    and share your unique <strong>portfolio URL</strong> with others!
+                </p>
+    </div>
+</div>
+
+
+
+
+        <div class="text-center " style="margin-top: 125px;">
+            <a href="#section-2" class="btn btn-primary px-4 py-2">
+                Get Started <i class="fas fa-arrow-right ml-2"></i>
+            </a>
+        </div>
+    </div>
+</section>
+
+<section id="section-2" class="py-5">
+    <div class="container">
+        <h2 class="text-center mb-5">Choose Your Template</h2>
+        <p class="text-center mb-5">
+            Select a template that fits your style. Click "Select Template" to start filling in your portfolio details.
+        </p>
+
+      <div class="row justify-content-center">
+    <!-- Example Template Card -->
+    <div class="col-md-6 mb-4">
+        <div class="card shadow-sm h-100 position-relative">
+            <img src="{{ url_for('static', filename='img/templates/template1.png') }}" 
+                 class="card-img-top" alt="Template 1" style="height: 250px; object-fit: cover;">
+
+            <div class="card-body text-center">
+                <h5 class="card-title">Template 1</h5>
+                <p class="card-text">A clean and modern template with sections for skills, projects, and certifications.</p>
+                <a href="{{ url_for('preview_portfolio', template='template1') }}" class="btn btn-outline-secondary me-2">
+                    Preview
+                </a>
+                <a href="{{ url_for('fill_form', template='template1') }}" class="btn btn-primary">
+                    Select/Update Template
+                </a>
+            </div>
+        </div>
+    </div>
+            <!-- Template 2 Card -->
+            <div class="col-md-6 mb-4">
+                <div class="card shadow-sm h-100 position-relative">
+                    <img src="{{ url_for('static', filename='img/templates/template2.png') }}" 
+                         class="card-img-top" alt="Template 2" style="height: 250px; object-fit: cover;">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Template 2</h5>
+                        <p class="card-text">A portfolio layout with emphasis on projects and professional experience.</p>
+                        <a href="{{ url_for('preview_portfolio', template='template2') }}" class="btn btn-outline-secondary me-2">
+                            Preview
+                        </a>
+                        <a href="{{ url_for('fill_form', template='template2') }}" class="btn btn-primary">
+                            Select/Update Template
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- Template 3 Card -->
+            <!-- <div class="col-md-6 mb-4">
+                <div class="card shadow-sm h-100 position-relative">
+                    <img src="{{ url_for('static', filename='img/templates/template3.jpg') }}" 
+                         class="card-img-top" alt="Template 3" style="height: 250px; object-fit: cover;">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Template 3</h5>
+                        <p class="card-text">A minimalistic design perfect for showcasing personal projects.</p>
+                        <a href="{{ url_for('preview_portfolio', template='template3') }}" class="btn btn-outline-secondary me-2">
+                            Preview
+                        </a>
+                        <a href="{{ url_for('fill_form', template='template3') }}" class="btn btn-primary">
+                            Select/Update Template
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="section-3" class="py-5" style="background-color: #f0f2f5;">
+     -->
+<section class="py-5" id="portfolio-status">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                {% if user.portfolio_url %}
+                <div class="card shadow-lg text-center border-0" style="border-radius: 15px;">
+                    <div class="card-body p-5">
+                        <i class="fas fa-check-circle fa-3x text-success mb-3"></i>
+                        <h2 class="card-title">Your Portfolio is Live!</h2>
+                        <p class="lead text-muted">Congratulations! Your portfolio is now public and ready to be shared.</p>
+
+                        <div class="input-group my-4">
+                            <input type="text" class="form-control" value="{{ request.url_root[:-1] }}{{ user.portfolio_url }}" id="portfolioLink" readonly>
+                            <button class="btn btn-outline-secondary" onclick="copyToClipboard('{{ request.url_root[:-1] }}{{ user.portfolio_url }}')" type="button" id="button-addon2">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                        </div>
+
+                        <p class="mb-2">Or share directly via:</p>
+                        <div>
+                            <a href="{{ user.portfolio_url }}" target="_blank" class="btn btn-info me-2">
+                                <i class="fas fa-eye"></i> View Portfolio
+                            </a>
+                            <a href="mailto:?subject=Check out my portfolio&body=Here is my portfolio: {{ request.url_root[:-1] }}{{ user.portfolio_url }}" class="btn btn-primary me-2">
+                                <i class="fas fa-envelope"></i> Email
+                            </a>
+                            <a href="https://api.whatsapp.com/send?text=Check out my portfolio: {{ request.url_root[:-1] }}{{ user.portfolio_url }}" target="_blank" class="btn btn-success">
+                                <i class="fab fa-whatsapp"></i> WhatsApp
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% else %}
+                <div class="text-center p-4" style="background-color: #fff; border-radius: 15px; box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.1);">
+                    <h4>You haven’t created a portfolio yet.</h4>
+                    <p class="text-muted">Select a template above to get started and bring your work to life!</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+</section>
+<script>
+  function copyToClipboard(text) {
+      // Modern browsers support navigator.clipboard
+      if (navigator.clipboard) {
+          navigator.clipboard.writeText(text).then(function() {
+              const copyButton = document.getElementById('button-addon2');
+              copyButton.innerHTML = '<i class="fas fa-check"></i> Copied!';
+              setTimeout(() => { copyButton.innerHTML = '<i class="fas fa-copy"></i> Copy'; }, 2000);
+          }, function(err) {
+              alert('Could not copy text. Please try again.');
+          });
+      } else {
+          // Fallback for older browsers
+          var textArea = document.createElement("textarea");
+          textArea.value = text;
+          document.body.appendChild(textArea);
+          textArea.select();
+          document.execCommand('copy');
+          document.body.removeChild(textArea);
+          alert('Portfolio link copied to clipboard! (fallback)');
+      }
+  }
+</script>
+
+<!-- Contact Section -->
+<section class="contact-section section" id="section-4">
+    <div class="container">
+        <div class="title text-center mb-4">
+            <h3>Get in Touch</h3>
+            <p class="text-light">We’d love to hear from you! Send us your queries or feedback.</p>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 mb-4 contact-form">
+                <form action="{{ url_for('contact') }}" method="POST">
+                    <div class="form-group mb-3">
+                        <input name="name" type="text" class="form-control" placeholder="Name">
+                            <div class="invalid-feedback">Name is required.</div>
+
+                    </div>
+                    <div class="form-group mb-3">
+                        <input name="email" style="color: black;" type="email" class="form-control" placeholder="Email">
+                            <div class="invalid-feedback">Enter a valid email address.</div>
+
+                    </div>
+                    <div class="form-group mb-3">
+                        <textarea name="message" style="color: black;" class="form-control" rows="5" placeholder="Message"></textarea>
+                            <div class="invalid-feedback">Message can't be empty.</div>
+
+                    </div>
+                    <div class="form-group text-right">
+                        <input type="submit" class="btn btn-light" value="Send Message">
+                    </div>
+                </form>
+            </div>
+            <div class="col-lg-6 contact-details">
+                <ul class="list-unstyled">
+                    <li><i class="fas fa-phone"></i> +91 9876543218</li>
+                    <li><i class="fas fa-envelope"></i> foliostacksupport@gmail.com</li>
+                    <li><i class="fab fa-instagram"></i> @foliostack</li>
+                </ul>
+            </div>
+        </div>                
+    </div>
+</section>
+
+{% endblock %}

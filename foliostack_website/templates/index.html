@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}FolioStack - Your Professional Portfolio Builder{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/all.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/magnific-popup.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/tooplate-simply-amazed.css') }}">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/templatemo-style.css') }}">
+    <style>
+        .tm-bg-gray {
+            background-color: #F2F2F2;
+        }
+        body{
+            width: 75%;
+        }
+        .tm-bg-dark-gray {
+            background-color: #333;
+        }
+        .tm-text-white {
+            color: #fff;
+        }
+        .tm-text-primary {
+            color: #007bff;
+        }
+        .tm-btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+        .tm-btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Page Loader -->
+    <div id="loader-wrapper">
+        <div id="loader"></div>
+        <div class="loader-section section-left"></div>
+        <div class="loader-section section-right"></div>
+    </div>
+
+    <div class="tm-main-container">
+        <div class="tm-main-container-inner">
+            {% block navbar %}
+            <!-- Default Navbar for homepage -->
+            <header class="header order-last" id="tm-header">
+                <nav class="navbar">
+                    <div class="collapse navbar-collapse single-page-nav">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#section-1"><span class="icn"><i class="fas fa-2x fa-home"></i></span> Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#section-2"><span class="icn"><i class="fas fa-2x fa-laptop-code"></i></span> Features</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#section-3"><span class="icn"><i class="far fa-2x fa-user"></i></span> Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#section-4"><span class="icn"><i class="far fa-2x fa-comments"></i></span> Contact</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#section-5"><span class="icn"><i class="fas fa-2x fa-user-plus"></i></span> Register</a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </header>
+            {% endblock %}
+
+            <div class="tm-content-container">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        <div class="container mt-3">
+                            {% for category, message in messages %}
+                                <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                                    {{ message }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                {% endwith %}
+
+                {% block content %}
+                <!-- Content from other templates will go here -->
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/jquery-3.3.1.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/slick.js') }}"></script>
+
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/parallax.min.js') }}"></script>
+
+    <script src="{{ url_for('static', filename='js/jquery.magnific-popup.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Conditionally include single-page-nav.js -->
+    {% if not is_dashboard %}
+    <script src="{{ url_for('static', filename='js/jquery.singlePageNav.min.js') }}"></script>
+    <script>
+    // Disable single-page-nav scroll if using custom showSection
+    $(document).ready(function() {
+        $('.single-page-nav a[href^="#section-"]').on('click', function(e) {
+            e.preventDefault();
+        });
+    });
+</script>
+
+    </script>
+    {% endif %}
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</body>
+</html>

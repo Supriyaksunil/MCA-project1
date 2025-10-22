@@ -1,0 +1,224 @@
+{% extends "index.html" %}
+{% block navbar %}
+<header class="header order-last" id="tm-header">
+    <nav class="navbar">
+        <div class="collapse navbar-collapse single-page-nav">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item"><a class="nav-link" href="#personal-container"><i class="fas fa-user"></i> Personal Info</a></li>
+                <li class="nav-item"><a class="nav-link" href="#skills-container"><i class="fas fa-laptop-code"></i> Skills</a></li>
+                <li class="nav-item"><a class="nav-link" href="#qualifications-container"><i class="fas fa-graduation-cap"></i> Qualifications</a></li>
+                <li class="nav-item"><a class="nav-link" href="#experience-container"><i class="fas fa-briefcase"></i> Experience</a></li>
+                <li class="nav-item"><a class="nav-link" href="#certifications-container"><i class="fas fa-certificate"></i> Certifications</a></li>
+                <li class="nav-item"><a class="nav-link" href="#gallery-container"><i class="fas fa-images"></i> Gallery</a></li>
+                <!-- <li class="nav-item"><a class="nav-link" href="{{ url_for('logout') }}"><i class="fas fa-sign-out-alt"></i> Log Out</a></li> -->
+            </ul>
+        </div>
+    </nav>
+</header>
+{% endblock %}
+{% block content %}
+<style>
+    #formstofill{
+        background-color:rgb(68, 68, 68);
+    }
+</style>
+
+<div class="container py-5" id="formstofill">
+    <h2 class="text-center mb-4">Fill Your Portfolio Details</h2>
+    <p class="text-center mb-5">
+        Complete the form below. Your information will be used to generate your personalized portfolio.
+    </p>
+
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <form action="{{ url_for('fill_form', template=template) }}" method="POST" enctype="multipart/form-data">
+
+
+                <!-- Profile Image -->
+                <h4>Profile Image</h4>
+                <div class="mb-3">
+                    {% if user_data and user_data.profile_image %}
+                        <p>Current Image:</p>
+                        <img src="{{ url_for('static', filename='img/uploads/profile_images/' + user_data.profile_image) }}" alt="Current Profile Image" style="max-width: 150px; margin-bottom: 10px;">
+                    {% endif %}
+                    <label for="profile_image" class="form-label">Upload Profile Image</label>
+                    <input type="file" class="form-control" id="profile_image" name="profile_image" accept="image/*">
+                </div>
+
+                <!-- Personal Info -->
+                <div class="mb-3" id="personal-container">
+                    <h4>Personal Info</h4>
+                    <label for="name" class="form-label">Full Name</label>
+                    <input type="text" class="form-control" id="name" name="name" placeholder="Your full name" value="{{ user_data.name if user_data else '' }}" required>
+                </div>
+                <div class="mb-3">
+                    <label for="position" class="form-label">Position / Title</label>
+                    <input type="text" class="form-control" id="position" name="position" placeholder="e.g., Frontend Developer" value="{{ user_data.position if user_data else '' }}">
+                </div>
+                <div class="mb-3">
+                    <label for="about" class="form-label">About Me</label>
+                    <textarea class="form-control" id="about" name="about" rows="4" placeholder="Write a brief introduction about yourself, your passion, and your career goals.">{{ user_data.about if user_data else '' }}</textarea>
+                </div>
+
+                <!-- Skills -->
+                <div id="skills-container">
+                    <h4>Skills</h4>
+                    {% if user_data and user_data.skills %}
+                        {% for skill in user_data.skills %}
+                        <div class="mb-3 skill-entry">
+                            <input type="text" class="form-control" name="skills[]" placeholder="Enter a skill" value="{{ skill }}" required>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="mb-3 skill-entry">
+                            <input type="text" class="form-control" name="skills[]" placeholder="Enter a skill" required>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- Qualifications -->
+                <div id="qualifications-container">
+                    <h4>Qualifications</h4>
+                    {% if user_data and user_data.qualifications %}
+                        {% for title, desc in user_data.qualifications %}
+                        <div class="qualification-entry mb-3">
+                            <input type="text" class="form-control mb-2" name="qualification_titles[]" placeholder="Qualification Title" value="{{ title }}" required>
+                            <textarea class="form-control" name="qualification_desc[]" rows="2" placeholder="Qualification Description" required>{{ desc }}</textarea>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="qualification-entry mb-3">
+                            <input type="text" class="form-control mb-2" name="qualification_titles[]" placeholder="Qualification Title" required>
+                            <textarea class="form-control" name="qualification_desc[]" rows="2" placeholder="Qualification Description" required></textarea>
+                        </div>
+                    {% endif %}
+                </div>
+                <button type="button" class="btn btn-secondary mb-3" onclick="addQualification()">Add More Qualification</button>
+
+                <!-- Work Experience -->
+                <div id="experience-container">
+                    <h4>Work Experience</h4>
+                    {% if user_data and user_data.experiences %}
+                        {% for title, desc in user_data.experiences %}
+                        <div class="experience-entry mb-3">
+                            <input type="text" class="form-control mb-2" name="experience_titles[]" placeholder="Job Title / Role" value="{{ title }}">
+                            <textarea class="form-control" name="experience_desc[]" rows="2" placeholder="Experience Description">{{ desc }}</textarea>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="experience-entry mb-3">
+                            <input type="text" class="form-control mb-2" name="experience_titles[]" placeholder="Job Title / Role">
+                            <textarea class="form-control" name="experience_desc[]" rows="2" placeholder="Experience Description"></textarea>
+                        </div>
+                    {% endif %}
+                </div>
+                <button type="button" class="btn btn-secondary mb-3" onclick="addExperience()">Add More Experience</button>
+
+                <!-- Certifications -->
+                <div id="certifications-container">
+                    <h4>Certifications</h4>
+                    <!-- Note: File inputs cannot be pre-filled for security reasons. We can only show what's already uploaded. -->
+                    {% if user_data and user_data.certifications %}
+                        <p>Current certifications uploaded: {{ user_data.certifications|length }}</p>
+                    {% endif %}
+                    <div class="mb-3 certification-entry">
+                        <input type="file" class="form-control" name="certifications[]" accept="image/*,application/pdf">
+                    </div>
+                </div>
+                <button type="button" class="btn btn-secondary mb-3" onclick="addCertification()">Add More Certification</button>
+
+                <!-- Gallery Images -->
+                <div id="gallery-container">
+                    <h4>Gallery Images (Up to 6)</h4>
+                    {% if user_data and user_data.gallery_images %}
+                        <p>Current gallery images uploaded: {{ user_data.gallery_images|length }}</p>
+                    {% endif %}
+                    <div class="mb-3 gallery-entry">
+                        <input type="file" class="form-control" name="gallery_images[]" accept="image/*">
+                    </div>
+                </div>
+                <button type="button" class="btn btn-secondary mb-3" onclick="addGallery()" id="add-gallery-btn">Add More Gallery Image</button>
+
+                <!-- Social Links -->
+                <h4>Social Links</h4>
+                <div class="mb-3">
+                    <label for="linkedin" class="form-label">LinkedIn URL</label>
+                    <input type="url" class="form-control" id="linkedin" name="linkedin" placeholder="https://www.linkedin.com/in/yourprofile" value="{{ user_data.linkedin if user_data else '' }}">
+                </div>
+
+                <div class="mb-3">
+                    <label for="github" class="form-label">GitHub URL</label>
+                    <input type="url" class="form-control" id="github" name="github" placeholder="https://github.com/yourusername" value="{{ user_data.github if user_data else '' }}">
+                </div>
+
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email Address</label>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="yourname@example.com" value="{{ user_data.email if user_data else '' }}">
+                </div>
+
+                <div class="text-center mb-5">
+<!-- Example for a builder after creating a portfolio -->
+
+                        <button type="submit" class="btn btn-primary">Generate portfolio</button>
+
+                        
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    // function addSkill() {
+    //     let container = document.getElementById('skills-container');
+    //     let div = document.createElement('div');
+    //     div.classList.add('mb-3', 'skill-entry', 'new-entry');
+    //     div.innerHTML = `<input type="text" class="form-control" name="skills[]" placeholder="Enter a skill" required>`;
+    //     container.appendChild(div);
+    // }
+
+    function addQualification() {
+        let container = document.getElementById('qualifications-container');
+        let div = document.createElement('div');
+        div.classList.add('qualification-entry', 'mb-3', 'new-entry');
+        div.innerHTML = `
+            <input type="text" class="form-control mb-2" name="qualification_titles[]" placeholder="Qualification Title" required>
+            <textarea class="form-control" name="qualification_desc[]" rows="2" placeholder="Qualification Description" required></textarea>
+        `;
+        container.appendChild(div);
+    }
+
+    function addExperience() {
+        let container = document.getElementById('experience-container');
+        let div = document.createElement('div');
+        div.classList.add('experience-entry', 'mb-3', 'new-entry');
+        div.innerHTML = `
+            <input type="text" class="form-control mb-2" name="experience_titles[]" placeholder="Job Title / Role" required>
+            <textarea class="form-control" name="experience_desc[]" rows="2" placeholder="Experience Description" required></textarea>
+        `;
+        container.appendChild(div);
+    }
+
+    function addCertification() {
+        let container = document.getElementById('certifications-container');
+        let div = document.createElement('div');
+        div.classList.add('mb-3', 'certification-entry', 'new-entry');
+        div.innerHTML = `<input type="file" class="form-control" name="certifications[]" accept="image/*,application/pdf">`;
+        container.appendChild(div);
+    }
+
+    function addGallery() {
+        let container = document.getElementById('gallery-container');
+        let entries = container.getElementsByClassName('gallery-entry');
+        if (entries.length >= 6) {
+            alert("You can upload up to 6 gallery images only.");
+            return;
+        }
+        let div = document.createElement('div');
+        div.classList.add('mb-3', 'gallery-entry', 'new-entry');
+        div.innerHTML = `<input type="file" class="form-control" name="gallery_images[]" accept="image/*">`;
+        container.appendChild(div);
+    }
+</script>
+{% endblock %}

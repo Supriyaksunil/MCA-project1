@@ -1,0 +1,211 @@
+{% extends 'index.html' %}
+
+{% block title %}Admin Panel - FolioStack{% endblock %}
+{% block navbar %}
+<header class="header order-last " id="tm-header" style="margin-top: 0;">
+    <nav class="navbar ">
+        <div class="collapse navbar-collapse single-page-nav">
+            <ul class="navbar-nav mx-auto">
+                <!-- <li class="nav-item"><a class="nav-link" href="{{ url_for('index') }}"><i class="fas fa-home"></i> Home</a></li> -->
+                <li class="nav-item"><a class="nav-link" href="#users"><i class="fas fa-layer-group"></i> All Users</a></li>
+                <li class="nav-item"><a class="nav-link" href="#recruiters"><i class="fas fa-laptop-code"></i> Recruiters</a></li>
+                <li class="nav-item"><a class="nav-link" href="#contact"><i class="far fa-comments"></i> Feedbacks</a></li>
+                <li class="nav-item"><a class="nav-link" href="#templates"><i class="fas fa-layer-group"></i> Templates</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('logout') }}"><i class="fas fa-sign-out-alt"></i> Log out</a></li>
+            </ul>
+        </div>
+    </nav>
+</header>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5" style="padding-top: 50px;">
+
+  <h2 class="mb-4" style="color: gray;">Admin Dashboard</h2>
+
+  <!-- USERS SECTION -->
+  <section id="users" class="mb-5">
+    <h4 style="color: gray;">Registered Users</h4>
+    <div class="card shadow p-3">
+      <table class="table table-bordered table-striped mb-0">
+        <thead class="table-dark">
+          <tr>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for user in users %}
+            <tr>
+              <td>{{ user.username }}</td>
+              <td>{{ user.email }}</td>
+              <td>{{ user.role }}</td>
+              <td>
+                <form action="{{ url_for('delete', user_id=user.id) }}" method="POST" style="display:inline;">
+                  <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                </form>
+              </td>
+            </tr>
+          {% else %}
+            <tr><td colspan="4" class="text-center text-muted" style="color: gray;">No users found</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- RECRUITERS SECTION -->
+  
+<section id="recruiters" class="mb-5">
+  <h4 style="color: gray;">Recruiters</h4>
+  <div class="card shadow p-3">
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped mb-0" style="white-space: nowrap;">
+      <thead class="table-dark">
+        <tr>
+          <th>User</th>
+          <th>Company Name</th>
+          <th>Designation</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Why join foliostack</th>
+          <th>Website & LinkedIn</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for recruiter in recruiter_verifications %}
+          <tr>
+            <td>{{ recruiter.name }}</td>
+            <td>{{ recruiter.company_name }}</td>
+            <td>{{ recruiter.designation }}</td>
+            <td>{{ recruiter.company_email }}</td>
+            <td>{{ recruiter.phone or 'N/A' }}</td>
+            <td>{{ recruiter.message }}</td>
+            <td>
+              {% if recruiter.company_website %}
+                <a href="{{ recruiter.company_website }}" target="_blank">{{ recruiter.company_website }}</a>
+              {% else %}
+                N/A
+              {% endif %}
+              <br>
+              {% if recruiter.linkedin %}
+                <a href="{{ recruiter.linkedin }}" target="_blank">{{ recruiter.linkedin }}</a>
+              {% else %}
+                N/A
+              {% endif %}
+            </td>
+            <td>
+              <!-- Approve Form -->
+              <form action="{{ url_for('approve_recruiter', recruiter_id=recruiter.id) }}" method="POST" style="display:inline;">
+                <button type="submit" class="btn btn-success btn-sm" 
+                        {% if recruiter.status == 'verified' %}disabled title="Already verified"{% endif %}>
+                  Approve
+                </button>
+              </form>
+              <!-- Delete Form -->
+              <form action="{{ url_for('delete_recruiter', recruiter_id=recruiter.id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this request?');">
+                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+              </form>
+            </td>
+          </tr>
+        {% else %}
+          <tr><td colspan="7" class="text-center text-muted" style="color: gray;">No recruiters found</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    </div>
+  </div>
+</section>
+
+  <!-- FEEDBACK SECTION -->
+  <section id="contact" class="mb-5">
+    <h4 style="color: gray;">Feedbacks</h4>
+    <div class="card shadow p-3">
+      <table class="table table-bordered table-striped mb-0">
+        <thead class="table-dark">
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Message</th>
+            <th>Time</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for fb in contact %}
+            <tr>
+              <td>{{ fb.name }}</td>
+              <td>{{ fb.email }}</td>
+              <td>{{ fb.message }}</td>
+              <td>{{ fb.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
+              <td>
+                <a href="mailto:{{ fb.email }}?subject=Reply&body=Hi {{ fb.name }},Thank you for contacting FolioStack!!!" class="btn btn-primary btn-sm me-2">
+                  reply
+                </a> 
+                <form action="{{ url_for('delete_feedback', feedback_id=fb.id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this feedback?');">
+                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                </form>
+              </td>
+            </tr>
+          {% else %}
+            <tr><td colspan="5" class="text-center text-muted" style="color: gray;">No feedback yet</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- TEMPLATE SECTION -->
+  <section id="templates" class="mb-5">
+    <h4 style="color: gray;">Portfolio Templates</h4>
+    <div class="mb-3">
+      <a data-bs-toggle="collapse" href="#templatesCollapse" role="button" aria-expanded="false"
+         aria-controls="templatesCollapse" style="text-decoration:none;">
+        <i class="bi bi-folder-fill text-warning" style="font-size:2rem;"></i>
+        <span style="margin-left:10px;">Available Templates</span>
+      </a>
+    </div>
+    <div class="collapse show" id="templatesCollapse">
+    <div class="row">
+    <!-- Example Template Card -->
+    
+      <div class="col-md-6 mb-4">
+        <div class="card shadow-sm h-100 position-relative">
+            <img src="{{ url_for('static', filename='img/templates/template1.png') }}" 
+                 class="card-img-top" alt="Template 1" style="height: 250px; object-fit: cover;">
+
+            <div class="card-body text-center">
+                <h5 class="card-title">Template 1</h5>
+                <p class="card-text">A clean and modern template with sections for skills, projects, and certifications.</p>
+                <a href="{{ url_for('preview_portfolio', template='template1') }}" class="btn btn-outline-secondary me-2">
+                    Preview
+                </a>
+                
+            </div>
+        </div>
+    </div>
+            <!-- Template 2 Card -->
+            <div class="col-md-6 mb-4">
+                <div class="card shadow-sm h-100 position-relative">
+                    <img src="{{ url_for('static', filename='img/templates/template2.png') }}" 
+                         class="card-img-top" alt="Template 2" style="height: 250px; object-fit: cover;">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Template 2</h5>
+                        <p class="card-text">A portfolio layout with emphasis on projects and professional experience.</p>
+                        <a href="{{ url_for('preview_portfolio', template='template2') }}" class="btn btn-outline-secondary me-2">
+                            Preview
+                        </a>
+                        
+                    </div>
+                </div>
+            </div>
+            
+    </div>
+    </div>
+  </section>
+
+</div>
+{% endblock %}

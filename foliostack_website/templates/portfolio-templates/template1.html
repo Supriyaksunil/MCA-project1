@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>John Doe - Portfolio</title>
+  <style>
+    /* Reset & base styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Arial', sans-serif;
+    }
+
+    body {
+      line-height: 1.6;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* Navbar */
+    nav {
+      width: 100%;
+      background-color: #333;
+      padding: 1rem 2rem;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      justify-content: flex-end;
+      gap: 2rem;
+    }
+
+    nav ul li a {
+      color: #fff;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+
+    nav ul li a:hover {
+      color: #00bcd4;
+    }
+
+    /* Hero Section */
+    header {
+      display: flex;
+      flex-direction: row;
+      height: 100vh;
+      width: 100%;
+      color: #fff;
+      overflow: hidden;
+    }
+
+    .hero-left {
+      flex: 1;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .hero-left img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      animation: zoomIn 1s ease forwards;
+
+    }
+    #home{
+      background: linear-gradient(to right, rgba(0,188,212,0.8), rgba(142,45,226,0.8));
+
+    }
+
+    .hero-right {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 0 4rem;
+      animation: fadeInRight 1s ease forwards;
+    }
+
+    .hero-right h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .hero-right p {
+      font-size: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .hero-right .btn {
+      padding: 0.75rem 1.5rem;
+      background-color: #fff;
+      color: #333;
+      font-weight: bold;
+      border-radius: 5px;
+      transition: all 0.3s;
+    }
+
+    .hero-right .btn:hover {
+      background-color: #00bcd4;
+      color: #fff;
+    }
+
+    /* Animations */
+    @keyframes fadeInRight {
+      0% { opacity: 0; transform: translateX(50px); }
+      100% { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes zoomIn {
+      0% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+
+    /* Sections */
+    section {
+      padding: 5rem 2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    section h2 {
+      text-align: center;
+      margin-bottom: 3rem;
+      font-size: 2.5rem;
+      color: #333;
+    }
+
+    /* About */
+    #about p {
+      max-width: 700px;
+      margin: 0 auto;
+      font-size: 1.1rem;
+      text-align: center;
+    }
+
+    /* Skills */
+    .skills-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+    }
+
+    .skill {
+      background-color: #00bcd4;
+      color: #fff;
+      padding: 1rem 2rem;
+      border-radius: 10px;
+      font-weight: bold;
+      transition: transform 0.3s;
+    }
+
+    .skill:hover {
+      transform: scale(1.1);
+    }
+
+    /* Portfolio */
+    .projects-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+
+    .project {
+      background-color: #fff;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+    }
+
+    .project img {
+      width: 100%;
+      display: block;
+    }
+
+    .project h3 {
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .project:hover {
+      transform: translateY(-10px);
+    }
+
+    /* Contact */
+    #contact form {
+      max-width: 600px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    #contact input, #contact textarea {
+      padding: 0.75rem;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+      width: 100%;
+    }
+
+    #contact button {
+      padding: 0.75rem;
+      border-radius: 5px;
+      border: none;
+      background-color: #00bcd4;
+      color: #fff;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    #contact button:hover {
+      background-color: #8e2de2;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      background-color: #333;
+      color: #fff;
+    }
+    /* Qualification */
+#qualification {
+  background-color: #f3f8fb;
+}
+
+.qualification-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.qualification {
+  background-color: #fff;
+  padding: 1.5rem 2rem;
+  border-left: 5px solid #00bcd4;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  transition: transform 0.3s ease;
+}
+
+.qualification:hover {
+  transform: translateY(-5px);
+}
+
+.qualification h3 {
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.qualification p {
+  font-size: 1rem;
+  color: #555;
+}
+
+
+    /* Smooth scroll */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* Responsive */
+    @media(max-width:768px){
+      header {
+        flex-direction: column;
+      }
+
+      .hero-right {
+        padding: 2rem;
+        align-items: center;
+        text-align: center;
+      }
+
+      .hero-left img {
+        width: 100%;
+        height: 50vh;
+      }
+
+      .hero-right h1 {
+        font-size: 2.2rem;
+      }
+
+      .hero-right p {
+        font-size: 1.2rem;
+      }
+    }
+    /* Certifications */
+#certifications {
+  background-color: #fff;
+  padding: 5rem 2rem;
+}
+
+#certifications h2 {
+  text-align: center;
+  margin-bottom: 3rem;
+  font-size: 2.5rem;
+  color: #333;
+}
+
+.certifications-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.certificate {
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  overflow: hidden;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.certificate img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.certificate h3 {
+  padding: 1rem;
+  font-size: 1.1rem;
+  color: #333;
+}
+/* Work Experience */
+#experience {
+  background-color: #fff;
+  padding: 5rem 2rem;
+}
+
+#experience h2 {
+  text-align: center;
+  margin-bottom: 3rem;
+  font-size: 2.5rem;
+  color: #333;
+}
+
+.experience-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.experience-card {
+  background-color: #f9f9f9;
+  border-left: 5px solid #8e2de2;
+  border-radius: 8px;
+  padding: 1.5rem 2rem;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+  transition: transform 0.3s ease;
+}
+
+.experience-card:hover {
+  transform: translateY(-5px);
+}
+
+.experience-card h3 {
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.experience-card p {
+  font-weight: bold;
+  color: #555;
+  margin-bottom: 0.75rem;
+}
+
+.experience-card ul {
+  margin-left: 1.5rem;
+  color: #444;
+  line-height: 1.6;
+}
+
+@media(max-width:768px){
+  .experience-card {
+    padding: 1.2rem 1.5rem;
+  }
+}
+
+
+.certificate:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+/* Gallery */
+#gallery {
+  background-color: #f3f8fb;
+  padding: 5rem 2rem;
+}
+/* Lightbox Modal */
+.lightbox {
+  display: none;
+  position: fixed;
+  z-index: 2000;
+  padding-top: 80px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.9);
+}
+
+.lightbox-content {
+  display: block;
+  margin: auto;
+  max-width: 80%;
+  border-radius: 10px;
+  animation: zoomIn 0.5s ease;
+}
+
+#lightbox-caption {
+  text-align: center;
+  color: #ccc;
+  margin-top: 10px;
+  font-size: 1.1rem;
+}
+
+.close {
+  position: absolute;
+  top: 30px;
+  right: 45px;
+  color: #fff;
+  font-size: 40px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.close:hover {
+  color: #00bcd4;
+}
+
+/* Optional: smooth zoom animation */
+@keyframes zoomIn {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+
+#gallery h2 {
+  text-align: center;
+  margin-bottom: 3rem;
+  font-size: 2.5rem;
+  color: #333;
+}
+
+.gallery-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.gallery-item {
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.gallery-item:hover img {
+  transform: scale(1.1);
+}
+
+.gallery-item:hover {
+  transform: translateY(-5px);
+}
+
+
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav>
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero Section -->
+  <header id="home">
+    <div class="hero-left">
+      <img src="{{ url_for('static', filename='img/templates/1.png') }}" alt="John Doe" style="margin-top: 100px;" alt="John Doe">
+    </div>
+    <div class="hero-right">
+      <h1>John Doe</h1>
+      <p>Front-End Developer | Designer | Creator</p>
+      <a href="#gallery" class="btn">View Gallery</a>
+    </div>
+  </header>
+
+  <!-- About Section -->
+  <section id="about">
+    <h2>About Me</h2>
+    <p>Hello! I am John Doe, a passionate front-end developer and designer. I love building beautiful and functional websites that make a difference. My focus is on clean, responsive design and user-friendly experiences.</p>
+  </section>
+<!-- Qualification Section -->
+<section id="qualification">
+  <h2>Qualifications</h2>
+  <div class="qualification-container">
+    <div class="qualification">
+      <h3>Bachelor of Technology in Computer Science</h3>
+      <p><strong>XYZ University</strong> — 2017 - 2021</p>
+      <p>Focused on software development, web technologies, and database systems. Graduated with distinction.</p>
+    </div>
+
+    <div class="qualification">
+      <h3>Frontend Development Certification</h3>
+      <p><strong>Coursera / Meta</strong> — 2022</p>
+      <p>Completed certification in modern frontend frameworks, responsive design, and UI/UX fundamentals.</p>
+    </div>
+
+    <!-- <div class="qualification">
+      <h3>Advanced JavaScript & React Bootcamp</h3>
+      <p><strong>Udemy / Online Program</strong> — 2023</p>
+      <p>Learned advanced JavaScript concepts, React hooks, and performance optimization for scalable applications.</p>
+    </div> -->
+  </div>
+</section>
+<section id="experience">
+  <h2>Work Experience</h2>
+  <div class="experience-container">
+    <div class="experience-card">
+      <h3>Front-End Developer</h3>
+      <p><strong>Creative Web Solutions</strong> — Jan 2022 - Present</p>
+      <ul>
+        <li>Developed responsive websites using HTML, CSS, JavaScript, and React.</li>
+        <li>Collaborated with designers and backend teams to improve performance and UX.</li>
+        <li>Implemented SEO-friendly code practices and optimized website load times by 30%.</li>
+      </ul>
+    </div>
+
+    <div class="experience-card">
+      <h3>UI/UX Designer (Intern)</h3>
+      <p><strong>Designify Studios</strong> — Jul 2021 - Dec 2021</p>
+      <ul>
+        <li>Created wireframes, prototypes, and mockups using Figma and Adobe XD.</li>
+        <li>Conducted usability testing and user research for client projects.</li>
+        <li>Designed intuitive dashboards and interactive landing pages for startups.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+
+  <!-- Skills Section -->
+  <section id="skills">
+    <h2>Skills</h2>
+    <div class="skills-container">
+      <div class="skill" id="skill1">HTML</div>
+      <div class="skill" id="skill2">CSS</div>
+      <div class="skill" id="skill3">JavaScript</div>
+      <div class="skill" id="skill4">React</div>
+      <div class="skill" id="skill5">Bootstrap</div>
+    </div>
+   
+  </section>
+  
+
+  <!-- Portfolio Section -->
+ <!-- Certifications Section -->
+<!-- Certifications Section -->
+<section id="certifications">
+  <h2>Certifications</h2>
+  <div class="certifications-container">
+    <div class="certificate">
+      <img src="{{ url_for('static', filename='img/templates/certificate1.jpg') }}" alt="Front-End Development Certificate">
+      <h3>Front-End Development Certificate</h3>
+    </div>
+
+    <div class="certificate">
+      <img src="{{ url_for('static', filename='img/templates/certificate2.jpg') }}" alt="JavaScript Advanced Course">
+      <h3>JavaScript Advanced Course</h3>
+    </div>
+
+    <div class="certificate">
+      <img src="{{ url_for('static', filename='img/templates/certificate3.jpg') }}" alt="React Developer Bootcamp">
+      <h3>React Developer Bootcamp</h3>
+    </div>
+
+    <div class="certificate">
+      <img src="{{ url_for('static', filename='img/templates/certificate4.png') }}" alt="UI/UX Design Essentials">
+      <h3>UI/UX Design Essentials</h3>
+    </div>
+  </div>
+</section>
+
+<!-- Gallery Section -->
+<section id="gallery">
+  <h2>Gallery</h2>
+  <div class="gallery-container">
+    <div class="gallery-item">
+      <img src="{{ url_for('static', filename='img/templates/gallery1.jpg') }}" alt="Gallery Image 1">
+    </div>
+    <div class="gallery-item">
+      <img src="{{ url_for('static', filename='img/templates/gallery2.jpg') }}" alt="Gallery Image 2">
+    </div>
+    <div class="gallery-item">
+      <img src="{{ url_for('static', filename='img/templates/gallery3.jpg') }}" alt="Gallery Image 3">
+    </div>
+    <div class="gallery-item">
+      <img src="{{ url_for('static', filename='img/templates/gallery4.jpg') }}" alt="Gallery Image 4">
+    </div>
+    <div class="gallery-item">
+      <img src="{{ url_for('static', filename='img/templates/gallery5.jpg') }}" alt="Gallery Image 5">
+    </div>
+    <div class="gallery-item">
+      <img src="{{ url_for('static', filename='img/templates/gallery6.jpg') }}" alt="Gallery Image 6">
+    </div>
+  </div>
+</section>
+
+<!-- Lightbox Modal (Shared for both Gallery & Certifications) -->
+<div id="lightbox" class="lightbox">
+  <span class="close">&times;</span>
+  <img class="lightbox-content" id="lightbox-img">
+  <div id="lightbox-caption"></div>
+</div>
+
+
+
+
+  <!-- Contact Section -->
+  <!-- <section id="contact">
+    <h2>Contact Me</h2>
+    <form>
+      <input type="text" placeholder="Your Name" required>
+      <input type="email" placeholder="Your Email" required>
+      <textarea rows="5" placeholder="Your Message" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+  </section> -->
+
+  <!-- Footer -->
+  <footer>
+    <!-- Social Icons Section -->
+<div class="social-icons mt-3">
+    
+    <a href="#" target="_blank" class="social-link "><i class="fa fa-2x fa-linkedin "></i></a>
+    
+    
+    
+    <a href="#" target="_blank" class="social-link"><i class="fa fa-2x fa-github"></i></a>
+    
+    
+    
+    <a href="#" class="social-link"><i class="fa fa-2x fa-envelope"></i></a>
+    
+</div>
+
+    &copy; 2025 John Doe. All Rights Reserved.
+  </footer>
+  <script>
+const lightbox = document.getElementById("lightbox");
+  const lightboxImg = document.getElementById("lightbox-img");
+  const caption = document.getElementById("lightbox-caption");
+  const closeBtn = document.getElementsByClassName("close")[0];
+
+  document.querySelectorAll(".certificate img, .gallery-item img").forEach(img => {
+    img.addEventListener("click", () => {
+      lightbox.style.display = "block";
+      lightboxImg.src = img.src;
+      caption.textContent = img.alt;
+    });
+  });
+
+  closeBtn.onclick = function() {
+    lightbox.style.display = "none";
+  };
+
+  window.onclick = function(e) {
+    if (e.target == lightbox) {
+      lightbox.style.display = "none";
+    }
+  };
+
+
+</script>
+</body>
+</html>
