@@ -8,13 +8,13 @@ import uuid
 app = Flask(__name__)
 app.secret_key = "your_secret_key"
 
-# db = mysql.connector.connect(
-#     host="localhost",
-#     user="root",
-#     password="0000",
-#     database="foliostack"
-# )
-# cursor = db.cursor(dictionary=True)
+db = mysql.connector.connect(
+    host="localhost",
+    user="root",
+    password="0000",
+    database="foliostack"
+)
+cursor = db.cursor(dictionary=True)
 
 UPLOAD_FOLDER = 'static/img/uploads'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
