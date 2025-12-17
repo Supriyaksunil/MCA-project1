@@ -9,11 +9,13 @@ app = Flask(__name__)
 app.secret_key = "your_secret_key"
 
 db = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password="0000",
-    database="foliostack"
+    host=os.getenv("MYSQLHOST"),
+    user=os.getenv("MYSQLUSER"),
+    password=os.getenv("MYSQLPASSWORD"),
+    database=os.getenv("MYSQLDATABASE"),
+    port=int(os.getenv("MYSQLPORT"))
 )
+
 cursor = db.cursor(dictionary=True)
 
 UPLOAD_FOLDER = 'static/img/uploads'
